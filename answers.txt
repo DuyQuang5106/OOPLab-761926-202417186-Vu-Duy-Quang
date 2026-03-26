@@ -1,0 +1,23 @@
+1. If the user clicks Cancel, the value stored in variable option would be 2, since every
+input not equivalent to the Yes option would be treated as false.
+
+	Therefore, the program will display: "You've chosen: No"
+2. We can add a parameter to the showConfirmDialog method to specify the option type.
+
+Example:
+		int option = JOptionPane.showConfirmDialog(null,
+			"Do you want to change",
+			"Select an Option",
+			JOptionPane.YES_NO_OPTION);
+To change the button text entirely, we need to use an array of Strings and the showOptionDialog method. This gives full control over the buttons.
+
+Example:
+	Object[] options = {"I do", "I don't"};
+	int n = JOptionPane.showOptionDialof(null,
+		"Do you want to change the first class ticket?",
+		"A silly Question",
+		JOptionPane.YES_NO_OPTION,
+		JOptionPane.QUESTION_MESSAGE,
+		null,
+		options,
+		options[0]);
