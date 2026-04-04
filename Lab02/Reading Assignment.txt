@@ -1,0 +1,12 @@
+Reading Assignment: When should accessor methods be used?
+
+Accessor methods (getters and setters) should not be used as a default practice in object-oriented programming. According to Allen Holub, excessive use of accessors exposes the internal implementation of a class and therefore weakens encapsulation. When other parts of the program rely on these accessors, any change to the internal structure of the class can propagate throughout the system, making the code harder to maintain and less flexible.
+
+Encapsulation requires that an object controls its own data and behavior. However, the frequent use of getters and setters encourages a procedural style, where external code retrieves data and performs operations on it. This contradicts the object-oriented principle of “tell, don’t ask,” in which objects should be asked to perform actions rather than expose their internal state.
+
+Despite these drawbacks, accessor methods are not completely forbidden. They may be appropriate in certain situations. For example, getters can be used when read-only access to data is required and does not compromise the integrity of the object. Similarly, setters may be acceptable when controlled modification is necessary, especially if they include validation or enforce constraints on the object’s state. In addition, accessors are often unavoidable when interacting with external systems, frameworks, or APIs, where flexibility and data exchange are required.
+
+However, developers should avoid creating trivial getters and setters that simply expose private fields without adding any meaningful behavior. Such usage provides little benefit over public fields and can lead to tightly coupled code and inconsistent object states. Instead, it is better to design methods that represent meaningful actions, allowing the object to manage its own data internally.
+
+In conclusion, accessor methods should be used sparingly and only when necessary. They are appropriate when they preserve encapsulation and support controlled interaction with an object’s data. In most cases, a well-designed object-oriented system should focus on behavior rather than direct data access, ensuring better maintainability and a clearer separation of responsibilities.
+
