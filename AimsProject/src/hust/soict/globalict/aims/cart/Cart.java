@@ -1,4 +1,6 @@
-package src;
+package hust.soict.globalict.aims.cart;
+
+import hust.soict.globalict.aims.media.DigitalVideoDisc;
 
 public class Cart {
 	public static final int MAX_NUMBERS_ORDERED = 20;
@@ -99,11 +101,11 @@ public class Cart {
 	
 	public void printCart()
 	{
-		System.out.println("\n--------------------------------");
+		System.out.println("\n***********************CART***********************");
 		if(qtyOrdered == 0)
 		{
 			System.out.println("The cart is empty!");
-			System.out.println("--------------------------------");
+			System.out.println("***************************************************");
 			return;
 		}
 		for(int i = 0; i < qtyOrdered; i++)
@@ -114,7 +116,7 @@ public class Cart {
 	                itemsOrdered[i].getCost());
 		}
 		
-		System.out.println("Total Cost: " + totalCost());
-		System.out.println("--------------------------------\n");
+		System.out.println("Total Cost: " + totalCost() + "$");
+		System.out.println("***************************************************\n");
 	}
 }
