@@ -1,25 +1,33 @@
 package hust.soict.globalict.aims.media;
 
-public class Disc extends Media{
+public abstract class Disc extends Media{
 	private int length;
 	private String director;
-	public static int nbDiscs = 0;
 	
-	public int getLength() {
-		return length;
-	}
-
-
-	public String getDirector() {
-		return director;
-	}
-
-
-	public Disc(int id, String title, String category, float cost, int length, String director) {
-		// TODO Auto-generated constructor stub
-		super(++nbDiscs, title, category, cost);
+	public Disc(String title, String category, float cost, int length, String director)
+	{
+		super(title, category, cost);
 		this.length = length;
 		this.director = director;
 	}
-
+	
+	public int getLength()
+	{
+		return length;
+	}
+	
+	public String getDirector()
+	{
+		return director;
+	}
+	@Override
+	public void mediaDetailsMenu() { 
+		System.out.println("Options: "); 
+		System.out.println("--------------------------------"); 
+		System.out.println("1. Add to cart"); 
+		System.out.println("2. Play"); 
+		System.out.println("0. Back"); 
+		System.out.println("--------------------------------"); 
+		System.out.println("Please choose a number: 0-1-2"); 
+		} 
 }

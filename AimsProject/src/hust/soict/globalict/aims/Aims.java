@@ -1,60 +1,260 @@
 package hust.soict.globalict.aims;
 
 import hust.soict.globalict.aims.cart.Cart;
-import hust.soict.globalict.aims.media.DigitalVideoDisc;
+
+import hust.soict.globalict.aims.media.*;
+import hust.soict.globalict.aims.store.Store;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Scanner;
+
 public class Aims {
+	public static void showMenu() { 
+		System.out.println("AIMS: "); 
+		System.out.println("--------------------------------"); 
+		System.out.println("1. View store"); 
+		System.out.println("2. Update store"); 
+		System.out.println("3. See current cart"); 
+		System.out.println("0. Exit"); 
+		System.out.println("--------------------------------"); 
+		System.out.println("Please choose a number: 0-1-2-3"); 
+		} 
+		public static void storeMenu() { 
+			System.out.println("Options: "); 
+			System.out.println("--------------------------------"); 
+			System.out.println("1. See a media’s details"); 
+			System.out.println("2. Add a media to cart"); 
+			System.out.println("3. Play a media"); 
+			System.out.println("4. See current cart"); 
+			System.out.println("0. Back"); 
+			System.out.println("--------------------------------"); 
+			System.out.println("Please choose a number: 0-1-2-3-4"); 
+		}
+		public static void mediaDetailsMenu() { 
+			System.out.println("Options: "); 
+			System.out.println("--------------------------------"); 
+			System.out.println("1. Add to cart"); 
+			System.out.println("2. Play"); 
+			System.out.println("0. Back"); 
+			System.out.println("--------------------------------"); 
+			System.out.println("Please choose a number: 0-1-2"); 
+			} 
+		public static void cartMenu() { 
+			System.out.println("Options: "); 
+			System.out.println("--------------------------------"); 
+			System.out.println("1. Filter media in cart"); 
+			System.out.println("2. Sort media in cart"); 
+			System.out.println("3. Remove media from cart"); 
+			System.out.println("4. Play a media"); 
+			System.out.println("5. Place order"); 
+			System.out.println("0. Back"); 
+			System.out.println("--------------------------------"); 
+			System.out.println("Please choose a number: 0-1-2-3-4-5"); 
+			}
+		
+    public static void main(String[] args) {
+        Store store = new Store();
+        Cart cart = new Cart();
+        Scanner sc = new Scanner(System.in);
+        while(true)
+        {
+        	showMenu();
+        	int i = Integer.parseInt(sc.nextLine());
+        	if(i == 0) {
+        		System.out.println("Bye!");
+        		break;
+        	} else if (i == 1) { // 1 View store
+        		storeMenu();
+        		int i1 = Integer.parseInt(sc.nextLine());
+        		if(i1 == 1) { // 1.1 See a media's details The option “See a media’s details” will ask the user to enter the title of the media and display the information of that media. Please remember to check the validity of the title. 
+        			System.out.println("Enter media name:");
+        			String s = sc.nextLine();
+        			Media m = store.findByTitle(s);
+        			if(m == null) System.out.println("Media not found!");
+        			else m.mediaDetailsMenu();
+        		} else if(i1 == 2) { // 1.2 Add media to cart
+        			System.out.println("Please enter the title of the media you want to add: ");
+        			String title = sc.nextLine();
 
-	public static void main(String[] args) {
+        			// 1. Search for the media in the store
+        			Media m = store.findByTitle(title);
 
-	    // Create a new cart
-	    Cart anOrder = new Cart();
+        			// 2. Check validity
+        			if (m == null) {
+        			    System.out.println("Sorry, that title was not found in the store.");
+        			} else {
+        			    // 3. Add to cart
+        			    cart.addMedia(m); 
+        			    System.out.println("The media '" + m.getTitle() + "' has been added to your cart.");
 
-	    // Create new dvd objects and add them to the cart
-	    DigitalVideoDisc dvd1 = new DigitalVideoDisc("The Lion King",
-	            "Animation", "Roger Allers", 87, 19.95f);
-	    anOrder.addDigitalVideoDisc(dvd1);
+        			    // 4. Special requirement: Display DVD count if a DVD was added
+        			    if (m instanceof DigitalVideoDisc) {
+        			        cart.nbDVD++;
+        			        // Iterate through the current cart to count DVDs
+        			        
+        			        }
+        			        System.out.println("Current number of DVDs in cart: " + cart.nbDVD);
+        			    }
+        			
+        		} else if(i1 == 3) { // 1.3 Play a media
+        			System.out.println("Please enter the title of the media you want to add: ");
+        			String title = sc.nextLine();
 
-	    DigitalVideoDisc dvd2 = new DigitalVideoDisc("Star Wars",
-	            "Science Fiction", "George Lucas", 87, 24.95f);
-	    anOrder.addDigitalVideoDisc(dvd2);
+        			// 1. Search for the media in the store
+        			Media m = store.findByTitle(title);
 
-	    DigitalVideoDisc dvd3 = new DigitalVideoDisc("Aladin",
-	            "Animation", 18.99f);
-	    anOrder.addDigitalVideoDisc(dvd3);
+        			// 2. Check validity
+        			if(m == null)
+        			{
+        				System.out.println("Sorry, that title was not found in the store.");
+        			}
+        			else
+        			{
+        				if(m instanceof Playable)
+        				{
+        					((Playable)m).play();
+        				}
+        				else
+        				{
+        					System.out.println("Sorry, can't play a book");
+        				}
+        			}
+        		} else if(i1 == 4) { // 1.4 See current cart
+        			cart.printCart();
+        		} else if(i1 == 0) { // 1.0 Back
+        			continue;
+        		} else { // Wrong input
+        			System.out.println("Wrong input.Please choose a number: 0-1-2-3-4"); 
+        		}
+        			
+        		continue;
+        	} else if (i == 2) { // 2 Update store
+        		System.out.println("Update Store Options: ");
+        	    System.out.println("--------------------------------");
+        	    System.out.println("1. Add a media to the store");
+        	    System.out.println("2. Remove a media from the store");
+        	    System.out.println("0. Back to main menu");
+        	    System.out.println("--------------------------------");
+        	    System.out.print("Please choose an option: ");
+        	    
+        	    int updateOption = Integer.parseInt(sc.nextLine());
 
-	    DigitalVideoDisc dvd4 = new DigitalVideoDisc("Inception",
-	            "Sci-Fi", "Christopher Nolan", 148, 29.99f);
+        	    if (updateOption == 1) {
+        	        // --- ADD MEDIA LOGIC ---
+        	        System.out.println("Enter the type of media (book, DVD, CD): ");
+        	        String type = sc.nextLine();
+        	        
+        	        System.out.println("Enter title: ");
+        	        String title = sc.nextLine();
+        	        System.out.println("Enter category: ");
+        	        String category = sc.nextLine();
+        	        System.out.println("Enter cost: ");
+        	        float cost = Float.parseFloat(sc.nextLine());
 
-	    DigitalVideoDisc dvd5 = new DigitalVideoDisc("The Dark Knight",
-	            "Action", "Christopher Nolan", 152, 27.50f);
+        	        if (type.equalsIgnoreCase("book")) {
+        	            System.out.println("Enter authors (comma separated): ");
+        	            String authorStr = sc.nextLine();
+        	            ArrayList<String> authors = new ArrayList<>(Arrays.asList(authorStr.split("\\s*,\\s*")));
+        	            store.addMedia(new Book(title, category, cost, authors));
+        	            
+        	        } else if (type.equalsIgnoreCase("DVD")) {
+        	            System.out.println("Enter director: ");
+        	            String director = sc.nextLine();
+        	            System.out.println("Enter length: ");
+        	            int length = Integer.parseInt(sc.nextLine());
+        	            store.addMedia(new DigitalVideoDisc(title, category, director, length, cost));
+        	            
+        	        } else if (type.equalsIgnoreCase("CD")) {
+        	            System.out.println("Enter director: ");
+        	            String director = sc.nextLine();
+        	            System.out.println("Enter artist: ");
+        	            String artist = sc.nextLine();
+        	            System.out.println("Enter length: ");
+        	            int length = Integer.parseInt(sc.nextLine());
+        	            store.addMedia(new CompactDisc(title, category, director, length, cost, artist));
+        	        }
+        	        System.out.println("Item added to store.");
 
-	    DigitalVideoDisc dvd6 = new DigitalVideoDisc("Avengers: Endgame",
-	            "Superhero", "Anthony Russo", 181, 34.99f);
+        	    } else if (updateOption == 2) {
+        	        // --- REMOVE MEDIA LOGIC ---
+        	        System.out.println("Enter the title of the media to remove: ");
+        	        String titleToRemove = sc.nextLine();
+        	        Media m = store.findByTitle(titleToRemove);
+        	        
+        	        if (m != null) {
+        	            store.removeMedia(m);
+        	            System.out.println("Item removed successfully.");
+        	        } else {
+        	            System.out.println("Media not found in store.");
+        	        }
+        	    }
+        	    continue; // Returns to the main menu
+        	} else if (i == 3) { // 3 See current cart
+        	} else if (i == 3) { // 3. See current cart
+        	    cart.printCart(); // Display what's currently in the cart
+        	    while (true) {
+        	        cartMenu();
+        	        int cartOption = sc.nextInt();
+        	        sc.nextLine(); // Consume newline
 
-	    DigitalVideoDisc dvd7 = new DigitalVideoDisc("Frozen",
-	            "Animation", "Chris Buck", 102, 22.99f);
-
-	    DigitalVideoDisc dvd8 = new DigitalVideoDisc("Titanic",
-	            "Romance", "James Cameron", 195, 21.00f);
-	    // print total cost of the items in the cart
-	    //System.out.println("Total Cost is: ");
-	    //System.out.println(anOrder.totalCost());
-	    anOrder.printCart();
-	    
-	    anOrder.removeDigitalVideoDisc(dvd3);	    
-	    anOrder.printCart();
-	    
-
-	    anOrder.addDigitalVideoDisc(dvd4);	    
-	    anOrder.printCart();
-	    
-	    anOrder.removeDigitalVideoDisc(dvd1);
-	    anOrder.removeDigitalVideoDisc(dvd2);
-	    anOrder.removeDigitalVideoDisc(dvd3);
-	    anOrder.removeDigitalVideoDisc(dvd4);
-	    anOrder.removeDigitalVideoDisc(dvd1);
-	    
-	    anOrder.printCart();
-	}
-
-}
+        	        if (cartOption == 0) { // Back
+        	            break; 
+        	        } else if (cartOption == 1) { // 3.1 Filter media
+        	            System.out.println("Filter by: 1. ID  2. Title");
+        	            int filterChoice = Integer.parseInt(sc.nextLine());
+        	            if (filterChoice == 1) {
+        	                System.out.print("Enter ID: ");
+        	                int id = Integer.parseInt(sc.nextLine());
+        	                cart.searchById(id);
+        	            } else {
+        	                System.out.print("Enter Title: ");
+        	                String filterTitle = sc.nextLine();
+        	                cart.searchByTitle(filterTitle);
+        	            }
+        	        } else if (cartOption == 2) { // 3.2 Sort media
+        	            System.out.println("Sort by: 1. Title  2. Cost");
+        	            int sortChoice = Integer.parseInt(sc.nextLine());
+        	            if (sortChoice == 1) {
+        	                cart.sortByTitle();
+        	            } else {
+        	                cart.sortByCost();
+        	            }
+        	            cart.printCart();
+        	        } else if (cartOption == 3) { // 3.3 Remove media
+        	            System.out.print("Enter title to remove: ");
+        	            String removeTitle = sc.nextLine();
+        	            Media m = cart.findByTitle(removeTitle); // Use a search method in Cart
+        	            if (m != null) {
+        	                cart.removeMedia(m);
+        	                System.out.println("Removed " + removeTitle);
+        	            } else {
+        	                System.out.println("Media not found in cart.");
+        	            }
+        	        } else if (cartOption == 4) { // 3.4 Play media
+        	            System.out.print("Enter title to play: ");
+        	            String playTitle = sc.nextLine();
+        	            Media m = cart.findByTitle(playTitle);
+        	            if (m instanceof Playable) {
+        	                ((Playable) m).play();
+        	            } else {
+        	                System.out.println("This item cannot be played.");
+        	            }
+        	        } else if (cartOption == 5) { // 3.5 Place order
+        	            System.out.println("Order has been placed! Your cart is now empty.");
+        	            cart.clearCart(); // Assuming you have a method to empty the list
+        	            break; // Back to main menu after order
+        	        }
+        	    }
+        	    continue;
+        	} else { // False input
+        		System.out.println("Please choose options 1, 2 or 3, or press 0 to exit");
+        		continue;
+        	}
+        		
+        	
+        	
+        }
+        sc.close();
+     }
+ }

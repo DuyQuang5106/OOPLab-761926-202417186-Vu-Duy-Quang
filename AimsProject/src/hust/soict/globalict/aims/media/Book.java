@@ -7,9 +7,9 @@ public class Book extends Media{
 
 	private List<String> authors = new ArrayList<String>();
 	public static int nbBooks = 0;
-	public Book(int id, String title, String category, float cost, List<String> authors) {
+	public Book(String title, String category, float cost, ArrayList<String> authors) {
 		// TODO Auto-generated constructor stub
-		super(++nbBooks, title, category, cost);
+		super(title, category, cost);
 		this.authors = new ArrayList<> (authors);
 	}
 	public List<String> getAuthors() {
@@ -45,5 +45,22 @@ public class Book extends Media{
 		System.out.println("removeAuthor: error! Author " + authorName+ "Not found!");
 		return;
 	}
-
+	
+    @Override
+    public String toString() {
+        return "Book - [" + getId() + "] " + getTitle() 
+               + " - " + getCategory() 
+               + " - Authors: " + authors 
+               + " - " + getCost() + "$";
+    }
+    
+    @Override
+    public void mediaDetailsMenu() { 
+    	System.out.println("Options: "); 
+    	System.out.println("--------------------------------"); 
+    	System.out.println("1. Add to cart");  
+    	System.out.println("0. Back"); 
+    	System.out.println("--------------------------------"); 
+    	System.out.println("Please choose a number: 0-1-2"); 
+    	} 
 }
