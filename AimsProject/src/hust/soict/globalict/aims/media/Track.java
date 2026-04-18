@@ -24,7 +24,7 @@ public class Track implements Playable{
 	@Override
 	public void play()
 	{
-		if(length < 0)
+		if(length > 0)
 		{
 			System.out.println("Playing Track: " + this.getTitle()); 
 			System.out.println("Track length: " + this.getLength());

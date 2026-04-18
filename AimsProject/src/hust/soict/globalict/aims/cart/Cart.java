@@ -45,15 +45,16 @@ public class Cart {
 		if(itemsOrdered.size() == 0)
 		{
 			System.out.println("The cart is empty!");
-			System.out.println("***************************************************");
+			System.out.println("***************************************************\n");
 			return;
 		}
+		System.out.println("Ordered Items:");
 		for(int i = 0; i < itemsOrdered.size(); i++)
 		{
-			System.out.println(itemsOrdered.get(i));
+			System.out.println((i+1) + ". " + itemsOrdered.get(i));
 		}
 		
-		System.out.println("Total Cost: " + totalCost() + "$");
+		System.out.println("Total cost: " + totalCost() + " $");
 		System.out.println("***************************************************\n");
 	}
 	// Tìm kiếm theo Title (Trả về đối tượng Media đầu tiên tìm thấy)
@@ -73,7 +74,6 @@ public class Cart {
 	        if (media.getId() == id) {
 	            System.out.println("Found Media: " + media.toString());
 	            found = true;
-	            break;
 	        }
 	    }
 	    if (!found) {
@@ -85,10 +85,15 @@ public class Cart {
 	public void searchByTitle(String title) {
 	    boolean found = false;
 	    for (Media media : itemsOrdered) {
-	        if (media.getTitle().toLowerCase().contains(title.toLowerCase())) {
-	            System.out.println("Found Media: " + media.toString());
-	            found = true;
-	        }
+	        if (media instanceof hust.soict.globalict.aims.media.DigitalVideoDisc) {
+	            if (((hust.soict.globalict.aims.media.DigitalVideoDisc)media).isMatch(title)) {
+	                System.out.println("Found DVD: " + media.toString());
+	                found = true;
+	            }
+	        } else if (media.getTitle().toLowerCase().contains(title.toLowerCase())) {
+                System.out.println("Found Media: " + media.toString());
+                found = true;
+            }
 	    }
 	    if (!found) {
 	        System.out.println("No media found with title containing: " + title);

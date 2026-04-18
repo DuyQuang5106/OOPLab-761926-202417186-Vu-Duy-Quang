@@ -53,14 +53,4 @@ public class Book extends Media{
                + " - Authors: " + authors 
                + " - " + getCost() + "$";
     }
-    
-    @Override
-    public void mediaDetailsMenu() { 
-    	System.out.println("Options: "); 
-    	System.out.println("--------------------------------"); 
-    	System.out.println("1. Add to cart");  
-    	System.out.println("0. Back"); 
-    	System.out.println("--------------------------------"); 
-    	System.out.println("Please choose a number: 0-1-2"); 
-    	} 
 }

@@ -57,5 +57,4 @@ public abstract class Media {
 		return "Media - [" + id + "] " + title + " - " + category + " - " + cost  + "$"; 
 	}
 	
-	public abstract void mediaDetailsMenu();
 }

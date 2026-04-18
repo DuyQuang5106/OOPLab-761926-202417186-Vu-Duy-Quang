@@ -1,0 +1,27 @@
+Answers to Reading Assignment & Questions:
+
+1. What are the advantages of Polymorphism?
+- Code Reusability: It provides a single interface to entities of different types thus allowing shared and reusable code.
+- Maintainability and Extensibility: Classes and methods can be added or updated independently by overriding parent methods natively without changing the behavior of existing code that depends on the superclass.
+- Flexibility: Permits a system to process objects differently depending on their data type or class at runtime.
+
+2. How is Inheritance useful to achieve Polymorphism in Java?
+Inheritance establishes the "is-a" structural hierarchy among classes. By inheriting from a common superclass, subclasses can override the methods defined in the superclass (runtime polymorphism). When an operation is performed, the JVM looks at the actual type of the instantiated object and dynamically binds to the appropriate overridden method in the subclass.
+
+3. What are the differences between Polymorphism and Inheritance in Java?
+- Inheritance is about establishing a parent-child relationship between classes, allowing a child to inherit properties and behaviors from a parent. It enables code reuse.
+- Polymorphism is the ability of an object to take on many forms. It allows an entity (such as a method) to behave differently in different contexts.
+- Put simply: Inheritance provides the structure that allows related classes to share common state and behavior, whereas Polymorphism defines how that shared behavior is uniquely executed by each specific subclass instance at runtime.
+
+4. Comparable interface approach questions:
+- What class should implement the Comparable interface?
+The `Media` class should implement the Comparable interface (i.e. `implements Comparable<Media>`), so that all its subclasses inherit the ability to be compared.
+
+- In those classes, how should you implement the compareTo() method to reflect the ordering that we want?
+You would implement the `compareTo(Media other)` method in the Media class to provide a single "natural" sort logic (for example, comparing by title alphabetically, and then by cost decreasingly). 
+
+- Can we have two ordering rules of the item (by title then cost and by cost then title) if we use this Comparable interface approach?
+No, the Comparable interface can only define one natural sort order per class. To support multiple sorting rules, we must use the Comparator interface approach instead.
+
+- Suppose the DVDs have a different ordering rule from the other media types, that is by title, then decreasing length, then cost. How would you modify your code to allow this?
+We could override the `compareTo(Media other)` method directly inside the `DigitalVideoDisc` class. The overidden method would first explicitly check the sorting logic for DVDs (comparing title, then length inversely, then cost), while deferring to the normal comparison for the rest. However, using a specific Comparator for this scenario when calling sort is significantly more flexible and clean.
