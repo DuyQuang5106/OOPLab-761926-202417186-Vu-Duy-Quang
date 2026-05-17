@@ -50,4 +50,9 @@ public class Store {
 		}
 		return null;
 	}
+	
+	public ArrayList<Media> getItemsInStore()
+	{
+		return new ArrayList<Media>(itemsInStore);
+	}
 }
