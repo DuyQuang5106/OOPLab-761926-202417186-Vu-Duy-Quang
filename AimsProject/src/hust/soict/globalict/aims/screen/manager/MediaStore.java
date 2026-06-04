@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import hust.soict.globalict.aims.exception.PlayerException;
 import hust.soict.globalict.aims.media.Media;
 import hust.soict.globalict.aims.media.Playable;
 
@@ -36,14 +37,23 @@ public MediaStore(Media media)
 		JButton playButton = new JButton("Play");
 		playButton.addActionListener(e -> {
 	        Playable playable = (Playable) media;
-	        playable.play();
+	        try {
+	        	playable.play();
 
-	        JOptionPane.showMessageDialog(
-	                this,
-	                "Playing: " + media.getTitle(),
-	                "Play",
-	                JOptionPane.INFORMATION_MESSAGE
-	        );
+	        	JOptionPane.showMessageDialog(
+	        			this,
+	        			"Playing: " + media.getTitle(),
+	        			"Play",
+	        			JOptionPane.INFORMATION_MESSAGE
+	        	);
+	        } catch (PlayerException exception) {
+	        	JOptionPane.showMessageDialog(
+	        			this,
+	        			exception.getMessage(),
+	        			"Play error",
+	        			JOptionPane.ERROR_MESSAGE
+	        	);
+	        }
 	    });
 		container.add(playButton);
 		

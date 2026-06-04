@@ -2,6 +2,7 @@ package hust.soict.globalict.aims;
 
 import hust.soict.globalict.aims.cart.Cart;
 
+import hust.soict.globalict.aims.exception.PlayerException;
 import hust.soict.globalict.aims.media.*;
 import hust.soict.globalict.aims.media.Playable;
 import hust.soict.globalict.aims.store.Store;
@@ -86,7 +87,11 @@ public class Aims {
             					System.out.println("Current number of DVDs in cart: " + cart.nbDVD);
             				} else if (detailOption == 2) {
             					if(m instanceof Playable) {
-            						((Playable)m).play();
+            						try {
+            							((Playable)m).play();
+            						} catch (PlayerException exception) {
+            							System.out.println(exception.getMessage());
+            						}
             					} else {
             						System.out.println("Sorry, can't play a book");
             					}
@@ -113,7 +118,11 @@ public class Aims {
             				System.out.println("Sorry, that title was not found in the store.");
             			} else {
             				if(m instanceof Playable) {
-            					((Playable)m).play();
+            					try {
+            						((Playable)m).play();
+            					} catch (PlayerException exception) {
+            						System.out.println(exception.getMessage());
+            					}
             				} else {
             					System.out.println("Sorry, can't play this media");
             				}
@@ -224,7 +233,11 @@ public class Aims {
         	            String playTitle = sc.nextLine();
         	            Media m = cart.findByTitle(playTitle);
         	            if (m instanceof Playable) {
-        	                ((Playable) m).play();
+        	                try {
+        	                	((Playable) m).play();
+        	                } catch (PlayerException exception) {
+        	                	System.out.println(exception.getMessage());
+        	                }
         	            } else {
         	                System.out.println("This item cannot be played.");
         	            }
